@@ -1,9 +1,9 @@
-local ycuken="йцукенгшщзхъфывапролджэячсмитьбюё\
+local ycuken=$'йцукенгшщзхъфывапролджэячсмитьбюё\
 ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ\
-\"№;:?.,/"
+"№;:?.,/'
 
-local qwerty="qwertyuiop[]asdfghjkl;'zxcvbnm,.\`\
-QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>~@#\$^&/?|"
+local qwerty=$'qwertyuiop[]asdfghjkl;\'zxcvbnm,.`\
+QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>~@#$^&/?|'
 
 _gibberish_error() {
     echo "gibberish: error: $1" >&2
@@ -69,7 +69,7 @@ command_not_found_handler() {
     local cmd="$(_gibberish_fix "$1")"
 
     if ! command -v "$cmd" >/dev/null 2>&1; then
-        echo "zsh: command not found: $1"
+        echo "zsh: command not found: $1" >&2
         return 127
     fi
 

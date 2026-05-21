@@ -19,6 +19,7 @@ _gibberish_get_layout() {
             ;;
         *)
             _gibberish_error "invalid layout: '$1'"
+            return 1
             ;;
     esac
 }
@@ -48,6 +49,7 @@ done
 
 _gibberish_fix() {
     local input="$*"
+    local i output="" char mapped
 
     for (( i=1; i <= $#input; i++ )); do
         char="${input[i]}"

@@ -65,10 +65,19 @@ _gibberish_fix() {
     echo "$output"
 }
 
+if (( ${+functions[command_not_found_handler]} )); then
+    functions[_gibberish_original_cnf]=$functions[command_not_found_handler]
+fi
+
 command_not_found_handler() {
     local cmd="$(_gibberish_fix "$1")"
 
     if ! command -v "$cmd" >/dev/null 2>&1; then
+        if (( ${+functions[_gibberish_original_cnf]} )); then
+            _gibberish_original_cnf "$@"
+            return $?
+        fi
+
         echo "zsh: command not found: $1" >&2
         return 127
     fi
